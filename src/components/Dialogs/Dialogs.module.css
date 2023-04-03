@@ -1,0 +1,87 @@
+.dialogs {
+  display: grid;
+  grid-template-columns: 3fr 10fr;
+  grid-template-rows: 8fr 2fr;
+  grid-template-areas:
+    "dialogs messages"
+    "dialogs sendbox";
+}
+
+.dialogItems {
+  grid-area: dialogs;
+  height: 100vh;
+}
+
+.dialog {
+  border-radius: 0.313em;
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  margin-bottom: 12px;
+  line-height: 50px;
+  transition: 0.33s ease-out;
+}
+
+.dialog:hover {
+  background-color: #8ed1fc;
+}
+
+.dialog:hover > a {
+  color: #fff;
+}
+
+.dialog a {
+  text-decoration: none;
+  color: #6f7f92;
+  margin-left: 20px;
+}
+
+.dialog img {
+  margin: 5px 0 0 5px;
+
+  height: 40px;
+  width: 40px;
+  border-radius: 30px;
+}
+
+.messages {
+  grid-area: messages;
+  margin: 5px 20px;
+}
+
+.message {
+  background-color: #fff;
+  border-radius: 0.313em;
+  margin-bottom: 7px;
+  min-height: 25px;
+  padding: 5px;
+}
+
+.sendbox {
+  position: fixed;
+  top: 87vmin;
+  right: 15%;
+  display: inline-flex;
+  justify-content: space-evenly;
+  align-content: center;
+  margin: 5px 20px;
+}
+
+.sendbox textarea {
+  width: 500px;
+  height: 50px;
+  border-radius: 0.313em;
+  resize: none;
+}
+
+.sendButton {
+  font-weight: 500;
+  font-size: 16px;
+  padding: 7px 15px;
+  margin-left: 15px;
+  border-radius: 0.313em;
+  background-color: #8ed1fc;
+  border: none;
+  box-shadow: 0 0 2px 1px rgb(2x25, 213, 213);
+}

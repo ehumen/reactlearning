@@ -1,10 +1,11 @@
 import React from "react";
+import "./Header.module.css";
 
 const Header = () => {
   return (
     <header>
       <img
-        src="https://w7.pngwing.com/pngs/786/126/png-transparent-logo-contracting-photography-logo-symbol-thumbnail.png"
+        src="https://www.radiustheme.com/demo/wordpress/themes/cirkle/preview/media/logo/logo.png"
         alt="logo"
       ></img>
     </header>

@@ -1,7 +1,16 @@
+import store from "./redux/redux-store";
 import React from "react";
-import ReactDOM from 'react-dom';
-
+import ReactDOM from 'react-dom/client';
 import App from "./app";
+import { Provider } from "react-redux";
+
+ReactDOM.createRoot(document.getElementById('root'))
+    .render(
+        <Provider store={store}>
+            <App />
+        </Provider>);
 
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// rerenderEntireTree(store.getState());
+
+// store.subscribe(() => { rerenderEntireTree(store.getState()) });

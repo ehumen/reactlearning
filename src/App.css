@@ -1,28 +1,24 @@
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
 .app-wrapper {
+  background-color: rgb(227, 235, 250);
+  height: 100vh;
   width: 1200px;
+  margin: 0 auto;
   display: grid;
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
   grid-template-areas:
     "header header"
     "nav main-content";
-  /* grid-gap: 10px; */
+  grid-gap: 10px;
 }
 
-header {
-  grid-area: header;
-  background-color: darkseagreen;
-}
-header img {
-  width: 50px;
-}
-
-nav {
-  grid-area: nav;
-  background-color: darkcyan;
+.app-wrapper-content {
+  grid-area: main-content;
 }
 
 main {
-  grid-area: main-content;
-  background-color: aqua;
+  margin-right: 10px;
 }
