@@ -1,16 +1,15 @@
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS = 'SET_USERS';
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export const SET_TOTAL_FRIENDS_COUNT = 'SET_TOTAL_FRIENDS_COUNT';
 
 let initialState = {
     friends: [
-        //     { id: 1, name: "Zoë", followed: true, status: "Wakanda Forever!", location: { city: "zimbabwe", country: "Wakanda" }, avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Zoe_Saldana_%2828584925641%29_%28cropped_2%29.jpg/300px-Zoe_Saldana_%2828584925641%29_%28cropped_2%29.jpg" },
-        //     { id: 2, name: "Samuel", followed: false, status: "Turuk tok mak", location: { city: "BigTree", country: "Pandora" }, avatar: "https://upload.wikimedia.org/wikipedia/commons/7/7d/Sam.worthington.png" },
-        //     { id: 3, name: "Sigourney", followed: true, status: "Ripley", location: { city: "skyrim", country: "spacehole" }, avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Sigourney_Weaver_by_Gage_Skidmore_4.jpg/375px-Sigourney_Weaver_by_Gage_Skidmore_4.jpg" },
-        //     { id: 4, name: "Michelle", followed: false, status: "Valkiria!", location: { city: "Asgard", country: "Walghalla" }, avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Michelle_Rodriguez_Cannes_2018_cropped.jpg/330px-Michelle_Rodriguez_Cannes_2018_cropped.jpg" },
-        //     { id: 5, name: "Robert", followed: false, status: "Iron man ;)", location: { city: "New York", country: "USA" }, avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Robert_Downey_jr_cropped_2008.jpg/300px-Robert_Downey_jr_cropped_2008.jpg" },
-        //     { id: 6, name: "Scarlett", followed: true, status: "Black Widow!", location: { city: "Kiyiv", country: "Ukraine" }, avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg/390px-Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg" }
     ],
+    totalFriendsCount: 0,
+    currentPage: 1,
+    pageSize: 3
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -20,19 +19,16 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 friends: state.friends.map((f) => {
                     if (f.id === action.id) {
-                        f.followed = true;
-                        // return { ...f, followed: true }
+                        return { ...f, followed: true }
                     }
                     return f;
                 })
-
             };
         case UNFOLLOW:
             return {
                 ...state,
                 friends: state.friends.map((f) => {
                     if (f.id === action.id) {
-                        // f.followed = false;
                         return { ...f, followed: false }
                     }
                     return f;
@@ -41,8 +37,18 @@ const usersReducer = (state = initialState, action) => {
         case SET_USERS:
             return {
                 ...state,
-                friends: [...state.friends, ...action.users]
+                friends: [...action.users]
             };
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: action.currentPage
+            };
+        case SET_TOTAL_FRIENDS_COUNT:
+            return {
+                ...state,
+                totalFriendsCount: action.totalCount
+            }
         default:
             return state;
     }
@@ -56,6 +62,12 @@ export const unfollowAC = (userId) => {
 }
 export const setUsersAC = (users) => {
     return { type: SET_USERS, users };
+}
+export const setCurrentPageAC = (currentPage) => {
+    return { type: SET_CURRENT_PAGE, currentPage: currentPage }
+}
+export const setTotalFriendsCountAC = (totalCount) => {
+    return { type: SET_TOTAL_FRIENDS_COUNT, totalCount: totalCount }
 }
 
 

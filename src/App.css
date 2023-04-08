@@ -3,7 +3,6 @@ body {
 }
 .app-wrapper {
   background-color: rgb(227, 235, 250);
-  height: 100vh;
   width: 1200px;
   margin: 0 auto;
   display: grid;

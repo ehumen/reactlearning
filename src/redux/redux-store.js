@@ -8,11 +8,10 @@ let rootReducer = combineReducers({
     profilePage: profileReducer,
     usersPage: usersReducer
 });
-
+//ця секція щоб дебажити
 let store = createStore(rootReducer);
-
 window.store = store;
-
+//
 
 export default configureStore({
     reducer: rootReducer
