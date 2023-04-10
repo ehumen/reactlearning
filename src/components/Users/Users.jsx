@@ -1,20 +1,33 @@
-import axios from "axios";
 import React from "react";
 import classes from "./Users.module.css";
 import userIcon from "../../assets/images/userIcon.jpg";
 
 const Users = (props) => {
+    let totalPagesCount = Math.ceil(
+      props.totalFriendsCount / props.pageSize
+    );
+
+    let pages = [];
+
+    for (let i = 1; i <= totalPagesCount; i++) {
+      pages.push(i);
+    }
+
+    let curPage = props.currentPage;
+    let curPageFirst = curPage - 3 < 0 ? 0 : curPage - 3;
+    let curPageLast = curPage + 3;
+    let slicedPages = pages.slice(curPageFirst, curPageLast);
   return (
     <div>
       <div>
-        {props.slicedPages.map((e) => (
+        {slicedPages.map((el) => (
           <span
-            className={props.currentPage == e ? classes.currentPage : ""}
+            className={props.currentPage === el ? classes.currentPage : ""}
             onClick={() => {
-              props.onCurrentPageChange(e);
+              props.onCurrentPageChange(el);
             }}
           >
-            {e}
+            {el}
           </span>
         ))}
       </div>
