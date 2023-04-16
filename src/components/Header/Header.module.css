@@ -2,3 +2,13 @@ header {
   grid-area: header;
   background-color: #2d5be3;
 }
+
+.login {
+  float: right;
+  margin-right: 20px;
+  margin-top: 18px;
+}
+
+.login a {
+  color: white;
+}

@@ -10,7 +10,12 @@ const ProfileInfo = (props) => {
           alt="top img"
         ></img>
       </div>
-      <div>ava + description</div>
+      <div>
+        <img src={props.profile.photos.small} />
+      </div>
+      <div>{props.profile.fullName}</div>
+      <br />
+      <div>Про мене: {props.profile.aboutMe}</div>
     </div>
   );
 };

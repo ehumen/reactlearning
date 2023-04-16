@@ -1,22 +1,21 @@
 import React from "react";
 import classes from "./Users.module.css";
 import userIcon from "../../assets/images/userIcon.jpg";
+import { NavLink } from "react-router-dom";
 
 const Users = (props) => {
-    let totalPagesCount = Math.ceil(
-      props.totalFriendsCount / props.pageSize
-    );
+  let totalPagesCount = Math.ceil(props.totalFriendsCount / props.pageSize);
 
-    let pages = [];
+  let pages = [];
 
-    for (let i = 1; i <= totalPagesCount; i++) {
-      pages.push(i);
-    }
+  for (let i = 1; i <= totalPagesCount; i++) {
+    pages.push(i);
+  }
 
-    let curPage = props.currentPage;
-    let curPageFirst = curPage - 3 < 0 ? 0 : curPage - 3;
-    let curPageLast = curPage + 3;
-    let slicedPages = pages.slice(curPageFirst, curPageLast);
+  let curPage = props.currentPage;
+  let curPageFirst = curPage - 3 < 0 ? 0 : curPage - 3;
+  let curPageLast = curPage + 3;
+  let slicedPages = pages.slice(curPageFirst, curPageLast);
   return (
     <div>
       <div>
@@ -35,11 +34,13 @@ const Users = (props) => {
         <div key={element.id}>
           <span>
             <div>
-              <img
-                className={classes.avatar}
-                src={element.avatar ? element.avatar : userIcon}
-                alt="ava"
-              />
+              <NavLink to={"/profile/" + element.id}>
+                <img
+                  className={classes.avatar}
+                  src={element.photos.small ? element.photos.small : userIcon}
+                  alt="ava"
+                />
+              </NavLink>
             </div>
             <div>
               {element.followed ? (

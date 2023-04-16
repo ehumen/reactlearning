@@ -11,6 +11,8 @@ import {
 import Users from "./Users";
 import axios from "axios";
 import Preloader from "../common/Preloader/Preloader";
+import { setProfilePage } from "../../redux/profile-reducer";
+
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -53,6 +55,7 @@ class UsersContainer extends React.Component {
             follow={this.props.follow}
             unfollow={this.props.unfollow}
             isFetching={this.props.isFetching}
+            setProfilePage={this.props.setProfilePage}
           />}
       </>
     );
@@ -70,4 +73,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, { follow, unfollow, setUsers, setCurrentPage, setTotalFriendsCount, toggleIsFetching })(UsersContainer);
+export default connect(mapStateToProps, { follow, unfollow, setUsers, setCurrentPage, setTotalFriendsCount, toggleIsFetching, setProfilePage })(UsersContainer);
