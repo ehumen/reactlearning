@@ -31,6 +31,17 @@ export const getAuthData = () => {
   return (instance.get(`auth/me`))
 };
 
+export const unfollowFriend = (id) => {
+  return (instance.delete(`follow/${id}`
+  )).then((response) => { return response.data })
+}
+
+export const followFriend = (id) => {
+  return (instance.post(`follow/${id}`
+  )).then((response) => { return response.data })
+}
+
+
 
 
 // const fibonacciArray = (N) => {
