@@ -1,38 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  follow,
+  followUser,
+  getUsers,
   setCurrentPage,
-  setTotalFriendsCount,
-  setUsers,
-  toggleFollowingInProgress,
-  toggleIsFetching,
-  unfollow,
+  unfollowUser,
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import { setProfilePage } from "../../redux/profile-reducer";
-import { getPages, getUsers } from "../../api/api";
 
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.toggleIsFetching(true);
-    getUsers(this.props.currentPage, this.props.pageSize)
-      .then((response) => {
-        this.props.setUsers(response.items);
-        this.props.setTotalFriendsCount(response.totalCount);
-        this.props.toggleIsFetching(false);
-      });
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onCurrentPageChange = (pageNumber) => {
-    this.props.toggleIsFetching(true);
+    this.props.getUsers(pageNumber, this.props.pageSize);
     this.props.setCurrentPage(pageNumber);
-    getPages(pageNumber, this.props.pageSize).then((response) => {
-      this.props.toggleIsFetching(false);
-      this.props.setUsers(response.items);
-    });
   }
 
   render() {
@@ -45,12 +31,10 @@ class UsersContainer extends React.Component {
             totalFriendsCount={this.props.totalFriendsCount}
             onCurrentPageChange={this.onCurrentPageChange}
             friends={this.props.friends}
-            follow={this.props.follow}
-            unfollow={this.props.unfollow}
-            isFetching={this.props.isFetching}
+            followUser={this.props.followUser}
+            unfollowUser={this.props.unfollowUser}
             setProfilePage={this.props.setProfilePage}
             followingInProgress={this.props.followingInProgress}
-            toggleFollowingInProgress={this.props.toggleFollowingInProgress}
           />}
       </>
     );
@@ -68,5 +52,6 @@ const mapStateToProps = (state) => {
   };
 };
 
+export default connect(mapStateToProps, { setCurrentPage, setProfilePage, getUsers, unfollowUser, followUser })(UsersContainer);
 
-export default connect(mapStateToProps, { follow, unfollow, setUsers, setCurrentPage, setTotalFriendsCount, toggleIsFetching, setProfilePage, toggleFollowingInProgress })(UsersContainer);
+

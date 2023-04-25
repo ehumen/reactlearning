@@ -1,22 +1,17 @@
 import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
-import axios from "axios";
-import { setProfilePage } from "../../redux/profile-reducer";
+import { getProfile, setProfilePage } from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
-import withRouter from "../../redux/withRouterWrapper";
-import { getProfile } from "../../api/api";
-
+import withParams from "../../redux/HOCs";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        let userId = this.props.router.params.userId;
+        let userId = this.props.params.userId;
         if (!userId) {
             userId = 28783
         }
-        getProfile(userId).then((response) => {
-            this.props.setProfilePage(response)
-        })
+        this.props.getProfile(userId);
     }
     render() {
         return (
@@ -31,8 +26,7 @@ const mapStateToProps = (state) => {
     }
 }
 
+let ProfileContainerWithParams = withParams(ProfileContainer);
 
-let ComponentWithUrlPath = withRouter(ProfileContainer);
+export default connect(mapStateToProps, { setProfilePage, getProfile })(ProfileContainerWithParams);
 
-
-export default connect(mapStateToProps, { setProfilePage })(ComponentWithUrlPath);

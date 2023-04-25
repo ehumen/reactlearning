@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS = 'SET_USERS';
@@ -8,8 +10,7 @@ export const TOGGLE_FOLLOWING_IN_PROGRESS = 'TOGGLE_FOLLOWING_IN_PROGRESS';
 
 
 let initialState = {
-    friends: [
-    ],
+    friends: [],
     totalFriendsCount: 0,
     currentPage: 1,
     pageSize: 3,
@@ -58,15 +59,14 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: action.isFetching
-            }
+            };
         case TOGGLE_FOLLOWING_IN_PROGRESS:
             return {
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter((id) => id !== action.userId),
-            }
-
+            };
         default:
             return state;
     }
@@ -94,5 +94,39 @@ export const toggleFollowingInProgress = (isFetching, userId) => {
     return { type: TOGGLE_FOLLOWING_IN_PROGRESS, isFetching, userId }
 };
 
+
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers(currentPage, pageSize)
+            .then((response) => {
+                dispatch(setUsers(response.items));
+                dispatch(toggleIsFetching(false));
+                dispatch(setTotalFriendsCount(response.totalCount));
+            });
+    }
+}
+export const unfollowUser = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId));
+        usersAPI.unfollowFriend(userId).then((response) => {
+            if (response.resultCode === 0) {
+                dispatch(unfollow(userId));
+            }
+            dispatch(toggleFollowingInProgress(false, userId));
+        });
+    }
+}
+export const followUser = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId));
+        usersAPI.followFriend(userId).then((response) => {
+            if (response.resultCode === 0) {
+                dispatch(follow(userId));
+            }
+            dispatch(toggleFollowingInProgress(false, userId));
+        });
+    }
+}
 
 export default usersReducer;
