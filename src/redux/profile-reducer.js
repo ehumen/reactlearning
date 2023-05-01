@@ -53,6 +53,7 @@ export const setProfilePage = (profileId) => {
     return { type: SET_PROFILE_PAGE, profileId }
 };
 
+
 export const getProfile = (userId) => {
     return (dispatch) => {
         usersAPI.getProfile(userId).then((response) => {

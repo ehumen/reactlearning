@@ -4,12 +4,8 @@ import profileReducer from './profile-reducer';
 import usersReducer from './users-reducer';
 import authReducer from './auth-reducer';
 
-// // ця секція щоб дебажити
-// let store = createStore(rootReducer);
-// window.store = store;
 
-
-const store = configureStore({
+export default configureStore({
     reducer: {
         messagePage: messageReducer,
         profilePage: profileReducer,
@@ -17,5 +13,3 @@ const store = configureStore({
         auth: authReducer,
     },
 });
-
-export default store;

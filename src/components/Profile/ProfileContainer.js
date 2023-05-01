@@ -3,7 +3,9 @@ import Profile from "./Profile";
 import { connect } from "react-redux";
 import { getProfile, setProfilePage } from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
-import withParams from "../../redux/HOCs";
+import withParams from "../../HOCs/withParams";
+import withLoginRedirect from "../../HOCs/withLoginRedirect";
+import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -15,18 +17,21 @@ class ProfileContainer extends React.Component {
     }
     render() {
         return (
-            !this.props.profile ? <Preloader /> : < Profile profile={this.props.profile} />
+            !this.props.profile ?
+                <Preloader /> : < Profile profile={this.props.profile} />
         )
     }
 }
 
+
 const mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
     }
 }
 
-let ProfileContainerWithParams = withParams(ProfileContainer);
-
-export default connect(mapStateToProps, { setProfilePage, getProfile })(ProfileContainerWithParams);
-
+export default compose(
+    withParams,
+    withLoginRedirect,
+    connect(mapStateToProps, { setProfilePage, getProfile }),
+)(ProfileContainer);
