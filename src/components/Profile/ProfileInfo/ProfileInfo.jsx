@@ -4,6 +4,19 @@ import userIcon from "../../../assets/images/userIcon.jpg"
 
 const ProfileInfo = (props) => {
   const [editMode, setEditMode] = useState(false)
+  const [status, setStatus] = useState(props.status)
+
+  const enableEditMode = () => {
+    setEditMode(true)
+  }
+
+  const disableEditMode = () => {
+    setEditMode(false)
+    props.updateStatus(status)
+  }
+  const onStatusChange = (e) => {
+    setStatus(e.target.value)
+  }
 
   return (
     <div>
@@ -22,7 +35,7 @@ const ProfileInfo = (props) => {
         {!editMode && (
           <span
             onClick={() => {
-              setEditMode(true)
+              enableEditMode()
             }}
           >
             {props.status}
@@ -34,9 +47,12 @@ const ProfileInfo = (props) => {
           <input
             autoFocus
             onBlur={() => {
-              setEditMode(false)
+              disableEditMode()
             }}
-            value={props.status}
+            onChange={(e) => {
+              onStatusChange(e)
+            }}
+            value={status}
           />
         )}
       </div>

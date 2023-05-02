@@ -18,13 +18,29 @@ export const usersAPI = {
     return (instance.post(`follow/${userId}`))
       .then((response) => { return response.data })
   },
+  async getProfile(userId) {  //unsupported method, use --> profileApi.getProfile
+    return (profileAPI.getProfile(userId));
+  },
+}
+export const profileAPI = {
   async getProfile(userId) {
     return (instance.get(`profile/` + userId))
       .then((response) => {
         return response.data
       });
   },
+  async getStatus(userId) {
+    return (instance.get(`profile/status/` + userId))
+      .then((response) => {
+        return response.data
+      });
+  },
+  async updateStatus(status) {
+    return (instance.put(`profile/status`, { status: status }))
+  },
+
 }
+
 
 
 export const getAuthData = () => {
