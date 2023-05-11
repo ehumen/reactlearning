@@ -1,5 +1,5 @@
 export const ADD_MESSAGE = 'ADD-MESSAGE';
-export const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+
 
 let initialState = {
     friends: [
@@ -16,33 +16,31 @@ let initialState = {
         { id: 3, message: "Ok" },
         { id: 4, message: "I'm fine" },
     ],
-    newMessageText: ""
 };
 
 const messageReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE:
-            let newMessage = { id: 1, message: state.newMessageText, incoming: true }
+            let newMessage = { id: 1, message: action.newMessage, incoming: true }
             return {
                 ...state,
                 messages: [...state.messages, newMessage],
-                newMessageText: ""
-            };
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.newText
+
             };
         default:
             return state;
     }
 }
 
-export const addMessage = () => {
-    return { type: ADD_MESSAGE };
+export const addMessage = (newMessage) => {
+    return { type: ADD_MESSAGE, newMessage };
 }
-export const updateNewMessageText = (text) => {
-    return { type: UPDATE_NEW_MESSAGE_TEXT, newText: text };
+
+
+export const sendNewMessage = (newMessage) => {
+    return (dispatch) => {
+        dispatch(addMessage(newMessage))
+    }
 }
 
 export default messageReducer;

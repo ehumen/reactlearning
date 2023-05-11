@@ -27,7 +27,7 @@ const ProfileInfo = (props) => {
         ></img>
       </div> */}
       <div>
-        <img className={classes.avatar} src={props.profile.photos.small ? props.profile.photos.small : userIcon} />
+        <img className={classes.avatar} alt="" src={props.profile.photos.small ? props.profile.photos.small : userIcon} />
       </div>
       <div>{props.profile.fullName}</div>
       <br />

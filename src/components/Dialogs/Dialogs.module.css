@@ -68,7 +68,7 @@
   margin: 5px 20px;
 }
 
-.sendbox textarea {
+.sendbox input {
   width: 500px;
   height: 50px;
   border-radius: 0.313em;

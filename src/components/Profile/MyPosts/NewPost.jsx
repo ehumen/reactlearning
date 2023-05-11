@@ -3,15 +3,16 @@ import { Field, Form } from "react-final-form"
 
 const NewPost = (props) => {
   const onSubmit = async (values) => {
-    props.addNewPost(values.newpost)
-    window.alert(JSON.stringify(values, 0, 2))
+    values.newpost && props.addNewPost(values.newpost)
+    values.newpost = null
   }
+
   return (
     <Form
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <Field name="newpost" placeholder="Write something!">
+          <Field name="newpost" placeholder="Write something!" subscription={{ value: true, error: true }}>
             {({ input, placeholder }) => (
               <div>
                 <div>

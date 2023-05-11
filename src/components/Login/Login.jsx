@@ -34,7 +34,6 @@ const LoginForm = () => (
               </div>
               <input {...input} placeholder={placeholder} />
               {meta.error && meta.touched && <span>{meta.error}</span>}
-              {meta.submitFailed ? <span>Введіть ваш Email який ви вказували при регістрації</span> : <span> </span>}
             </div>
           )}
         </Field>

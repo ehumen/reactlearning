@@ -50,6 +50,7 @@ export const authAPI = {
     return (instance.get(`auth/me`))
   },
   async sendAuthData(authData) {
+
     return (instance.post(`/auth/login`, authData))
       .then((response) => {
         return response.data
