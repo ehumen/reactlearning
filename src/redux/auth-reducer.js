@@ -1,3 +1,4 @@
+import { redirect, useNavigate } from "react-router-dom";
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -14,19 +15,15 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                id: action.id,
-                email: action.email,
-                login: action.login,
-                ...action.data,
-                isAuth: true,
+                ...action.payload,
             }
         default:
             return state;
     }
 }
 
-export const setUserAuthData = (id, email, login) => {
-    return { type: SET_USER_DATA, id, email, login }
+export const setUserAuthData = (id, email, login, isAuth) => {
+    return { type: SET_USER_DATA, payload: { id, email, login, isAuth } }
 }
 
 export const getUserAuthData = () => {
@@ -34,10 +31,29 @@ export const getUserAuthData = () => {
         authAPI.getAuthData().then((response) => {
             if (response.data.resultCode === 0) {
                 let { id, email, login } = response.data.data;
-                dispatch(setUserAuthData(id, email, login));
+                dispatch(setUserAuthData(id, email, login, true));
             }
         })
     }
 }
+
+export const login = (email, password, rememberMe) => {
+    return (dispatch) => {
+        authAPI.login(email, password, rememberMe).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(getUserAuthData());
+            }
+        });
+
+    }
+}
+export const logout = () => (dispatch) => {
+    authAPI.logout().then((response) => {
+        if (response.data.resultCode === 0) {
+            dispatch(setUserAuthData(null, null, null, false));
+        }
+    })
+}
+
 
 export default authReducer;
