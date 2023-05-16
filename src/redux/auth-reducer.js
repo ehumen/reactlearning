@@ -37,16 +37,20 @@ export const getUserAuthData = () => {
     }
 }
 
-export const login = (email, password, rememberMe) => {
-    return (dispatch) => {
-        authAPI.login(email, password, rememberMe).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(getUserAuthData());
-            }
-        });
+// export const login = (email, password, rememberMe) => {
+//     return (dispatch) => {
+//         authAPI.login(email, password, rememberMe).then(response => {
+//             if (response.data.resultCode === 0) {
+//                 dispatch(getUserAuthData());
+//             }
+//             else if (response.data.resultCode !== 0) {
+//                 return response.data.messages;
 
-    }
-}
+//             }
+//         });
+//     }
+// }
+
 export const logout = () => (dispatch) => {
     authAPI.logout().then((response) => {
         if (response.data.resultCode === 0) {

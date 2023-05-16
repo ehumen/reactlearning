@@ -1,54 +1,75 @@
+import { FORM_ERROR } from "final-form"
 import React from "react"
 import { Field, Form } from "react-final-form"
+import { authAPI } from "../../api/api"
+import classes from "./Login.module.css"
 
 const LoginForm = (props) => {
-  const onSubmit = (values) => {
-    props.login(values.email, values.password, values.rememberMe)
-  }
+  const onSubmit = async (values) => {
+    return await authAPI.login(values.email, values.password, values.rememberMe).then((response) => {
+      switch (response.data.resultCode) {
+        case 0:
+          props.getUserAuthData()
+          break
+        case 1:
+          return { [FORM_ERROR]: response.data.messages[0] }
 
-  const required = (value) => (value ? undefined : "*Required field")
+        case 10:
+          break
+      }
+    })
+  }
 
   return (
     <Form
       onSubmit={onSubmit}
-      initialValues={{}}
-      render={({ handleSubmit, submitting }) => (
+      validate={(values) => {
+        const errors = {}
+        if (!values.email) {
+          errors.email = "*+Required"
+        }
+        if (!values.password) {
+          errors.password = "*-Required"
+        }
+        return errors
+      }}
+      render={({ submitError, handleSubmit, form, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit}>
-          <Field name="email" placeholder="Email" validate={required} subscription={{ value: true, active: true, error: true, touched: true, submitFailed: false }}>
+          <Field name="email" placeholder="Email">
             {({ input, meta, placeholder }) => (
               <div>
                 <div>
                   <label> Login </label>
                 </div>
                 <input {...input} placeholder={placeholder} />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {(meta.error || meta.submitError) && meta.touched && <span>{meta.error || meta.submitError}</span>}
               </div>
             )}
           </Field>
-          {/* <Field name="email" placeholder="email" validate={required}>
-          {(fieldState) => <pre>{JSON.stringify(fieldState, undefined, 2)}</pre>}
-        </Field> */}
-
-          <Field name="password" placeholder="Password" type="password" validate={required} subscription={{ value: true, active: true, error: true, touched: true, submitFailed: false }}>
+          <Field name="password" placeholder="Password" type="password">
             {({ input, meta, placeholder }) => (
               <div>
                 <div>
                   <label> Password </label>
                 </div>
                 <input {...input} placeholder={placeholder} />
-                {meta.error && meta.touched && meta.submitError && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span>{meta.error}</span>}
               </div>
             )}
           </Field>
-
-          <div>
-            <Field component="input" name="rememberMe" type="checkbox" />
-            Remember Me
-          </div>
+          <Field name="rememberMe" type="checkbox">
+            {({ input }) => (
+              <div>
+                <input {...input} />
+                Remember Me
+              </div>
+            )}
+          </Field>
+          {submitError && <div className={classes.error}>{submitError}</div>}
           <div>
             <button disabled={submitting}>Log In</button>
           </div>
-          {/* {(values) => <pre>{JSON.stringify(values, undefined, 2)}</pre>} */}
+          {<pre>{JSON.stringify(values, undefined, 2)}</pre>}
         </form>
       )}
     />

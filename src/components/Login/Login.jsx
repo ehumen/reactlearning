@@ -1,5 +1,5 @@
 import React from "react"
-import { login } from "../../redux/auth-reducer"
+import { getUserAuthData, login } from "../../redux/auth-reducer"
 import { connect } from "react-redux"
 import LoginForm from "./LoginForm"
 import { Navigate } from "react-router-dom"
@@ -13,7 +13,7 @@ const Login = (props) => {
       <div>
         <h1>LOGIN PAGE</h1>
       </div>
-      <LoginForm login={props.login} />
+      <LoginForm login={props.login} getUserAuthData={props.getUserAuthData} />
     </div>
   )
 }
@@ -24,6 +24,6 @@ let mapStateToProps = (state) => {
   }
 }
 
-const LoginContainer = connect(mapStateToProps, { login })(Login)
+const LoginContainer = connect(mapStateToProps, { getUserAuthData })(Login)
 
 export default LoginContainer
