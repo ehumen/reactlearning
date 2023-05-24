@@ -1,4 +1,4 @@
-import { redirect, useNavigate } from "react-router-dom";
+import { FORM_ERROR } from "final-form";
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -26,30 +26,31 @@ export const setUserAuthData = (id, email, login, isAuth) => {
     return { type: SET_USER_DATA, payload: { id, email, login, isAuth } }
 }
 
-export const getUserAuthData = () => {
-    return (dispatch) => {
-        authAPI.getAuthData().then((response) => {
-            if (response.data.resultCode === 0) {
-                let { id, email, login } = response.data.data;
-                dispatch(setUserAuthData(id, email, login, true));
-            }
-        })
-    }
+export const getUserAuthData = () => (dispatch) => {
+    return authAPI.getAuthData().then((response) => {
+        if (response.data.resultCode === 0) {
+            let { id, email, login } = response.data.data;
+            dispatch(setUserAuthData(id, email, login, true));
+        }
+    })
 }
 
-// export const login = (email, password, rememberMe) => {
-//     return (dispatch) => {
-//         authAPI.login(email, password, rememberMe).then(response => {
-//             if (response.data.resultCode === 0) {
-//                 dispatch(getUserAuthData());
-//             }
-//             else if (response.data.resultCode !== 0) {
-//                 return response.data.messages;
 
-//             }
-//         });
-//     }
-// }
+export const login = (email, password, rememberMe) => {
+    return (dispatch) => {
+        return authAPI.login(email, password, rememberMe).then(response => {
+            switch (response.data.resultCode) {
+                case 0:
+                    dispatch(getUserAuthData());
+                    break
+                case 1:
+                    return { [FORM_ERROR]: response.data.messages[0] }
+                case 10:
+                    break
+            }
+        });
+    }
+}
 
 export const logout = () => (dispatch) => {
     authAPI.logout().then((response) => {

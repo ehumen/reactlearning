@@ -3,6 +3,7 @@ import messageReducer from './message-reducer';
 import profileReducer from './profile-reducer';
 import usersReducer from './users-reducer';
 import authReducer from './auth-reducer';
+import appReducer from './app-reducer';
 
 
 export default configureStore({
@@ -11,5 +12,6 @@ export default configureStore({
         profilePage: profileReducer,
         usersPage: usersReducer,
         auth: authReducer,
+        app: appReducer,
     },
 });

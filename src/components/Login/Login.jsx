@@ -13,7 +13,7 @@ const Login = (props) => {
       <div>
         <h1>LOGIN PAGE</h1>
       </div>
-      <LoginForm login={props.login} getUserAuthData={props.getUserAuthData} />
+      <LoginForm login={props.login} />
     </div>
   )
 }
@@ -24,6 +24,6 @@ let mapStateToProps = (state) => {
   }
 }
 
-const LoginContainer = connect(mapStateToProps, { getUserAuthData })(Login)
+const LoginContainer = connect(mapStateToProps, { getUserAuthData, login })(Login)
 
 export default LoginContainer

@@ -1,23 +1,10 @@
-import { FORM_ERROR } from "final-form"
 import React from "react"
 import { Field, Form } from "react-final-form"
-import { authAPI } from "../../api/api"
 import classes from "./Login.module.css"
 
 const LoginForm = (props) => {
   const onSubmit = async (values) => {
-    return await authAPI.login(values.email, values.password, values.rememberMe).then((response) => {
-      switch (response.data.resultCode) {
-        case 0:
-          props.getUserAuthData()
-          break
-        case 1:
-          return { [FORM_ERROR]: response.data.messages[0] }
-
-        case 10:
-          break
-      }
-    })
+    return await props.login(values.email, values.password, values.rememberMe)
   }
 
   return (
@@ -33,7 +20,7 @@ const LoginForm = (props) => {
         }
         return errors
       }}
-      render={({ submitError, handleSubmit, form, submitting, pristine, values }) => (
+      render={({ submitError, handleSubmit, submitting, values }) => (
         <form onSubmit={handleSubmit}>
           <Field name="email" placeholder="Email">
             {({ input, meta, placeholder }) => (
