@@ -1,29 +1,31 @@
-import React from "react";
-import Profile from "./Profile";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import withParams from "../../HOCs/withParams";
 import { getProfile, getStatus, setProfilePage, updateStatus } from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
-import withParams from "../../HOCs/withParams";
-import { compose } from "redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import Profile from "./Profile";
+import withLoginRedirect from "../../HOCs/withLoginRedirect";
 
-class ProfileContainer extends React.Component {
-    componentDidMount() {
-        let userId = this.props.params.userId;
+const ProfileContainer = (props) => {
+
+    const [userId, setUserId] = useState(props.params.userId)
+
+    useEffect(() => {
         if (!userId) {
-            userId = this.props.authorizedUserId;
-
+            setUserId(props.authorizedUserId)
         } else {
-            this.props.getProfile(userId);
-            this.props.getStatus(userId);
+            props.getProfile(userId);
+            props.getStatus(userId);
         }
-    }
-    render() {
-        return (
-            !this.props.profile ?
-                <Preloader /> : < Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus} />
-        )
-    }
+    }, [userId])
+
+
+    return (
+        !props.profile ?
+            <Preloader /> : < Profile profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
+    )
+
 }
 
 
@@ -38,4 +40,5 @@ const mapStateToProps = (state) => {
 export default compose(
     withParams,
     connect(mapStateToProps, { setProfilePage, getProfile, getStatus, updateStatus }),
+    withLoginRedirect
 )(ProfileContainer);

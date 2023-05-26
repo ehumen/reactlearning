@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import './app.css';
 import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -13,31 +13,31 @@ import Preloader from './components/common/Preloader/Preloader';
 import LoginContainer from './components/Login/Login';
 
 
-class App extends Component {
-    componentDidMount() {
-        this.props.initializeApp();
-    };
-    render() {
-        if (!this.props.initialized) {
-            return <Preloader />
-        }
-        return (
-            <BrowserRouter>
-                <div className='app-wrapper'>
-                    <HeaderContainer />
-                    <Navbar state={this.props.state} />
-                    <div className='app-wrapper-content'>
-                        <Routes>
-                            <Route path='/profile/:userId?' element={<ProfileContainer />} />
-                            <Route path='/dialogs/*' element={<DialogsContainer />} />
-                            <Route path='/users' element={<UsersContainer />} />
-                            <Route path='/login' element={<LoginContainer />} />
-                        </Routes>
-                    </div>
-                </div>
-            </BrowserRouter >)
+const App = (props) => {
+    useEffect(() => {
+        props.initializeApp();
+    }, [props.initialized])
+
+    if (!props.initialized) {
+        return <Preloader />
     }
+    return (
+        <BrowserRouter>
+            <div className='app-wrapper'>
+                <HeaderContainer />
+                <Navbar state={props.state} />
+                <div className='app-wrapper-content'>
+                    <Routes>
+                        <Route path='/profile/:userId?' element={<ProfileContainer />} />
+                        <Route path='/dialogs/*' element={<DialogsContainer />} />
+                        <Route path='/users' element={<UsersContainer />} />
+                        <Route path='/login' element={<LoginContainer />} />
+                    </Routes>
+                </div>
+            </div>
+        </BrowserRouter >)
 }
+
 const mapStateToProps = (state) => {
     return {
         initialized: state.app.initialized,

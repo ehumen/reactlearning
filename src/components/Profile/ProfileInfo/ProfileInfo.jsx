@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import classes from "./ProfileInfo.module.css"
 import userIcon from "../../../assets/images/userIcon.jpg"
 
@@ -17,6 +17,10 @@ const ProfileInfo = (props) => {
   const onStatusChange = (e) => {
     setStatus(e.target.value)
   }
+  //поки не видаляю, дивлюсь як буде працювати зміна статусу
+  // useEffect(() => {
+  //   setStatus(props.status)
+  // }, [props.status])
 
   return (
     <div>

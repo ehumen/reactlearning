@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import {
   followUser,
@@ -11,35 +11,35 @@ import Preloader from "../common/Preloader/Preloader";
 import { setProfilePage } from "../../redux/profile-reducer";
 
 
-class UsersContainer extends React.Component {
-  componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+const UsersContainer = (props) => {
+
+  useEffect(() => { props.getUsers(props.currentPage, props.pageSize) }, [props.currentPage, props.pageSize]);
+
+
+  const onCurrentPageChange = (pageNumber) => {
+    props.getUsers(pageNumber, props.pageSize);
+    props.setCurrentPage(pageNumber);
   }
 
-  onCurrentPageChange = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
-    this.props.setCurrentPage(pageNumber);
-  }
 
-  render() {
-    return (
-      <>
-        {this.props.isFetching ? <Preloader /> :
-          <Users
-            currentPage={this.props.currentPage}
-            pageSize={this.props.pageSize}
-            totalFriendsCount={this.props.totalFriendsCount}
-            onCurrentPageChange={this.onCurrentPageChange}
-            friends={this.props.friends}
-            followUser={this.props.followUser}
-            unfollowUser={this.props.unfollowUser}
-            setProfilePage={this.props.setProfilePage}
-            followingInProgress={this.props.followingInProgress}
-          />}
-      </>
-    );
-  }
+  return (
+    <>
+      {props.isFetching ? <Preloader /> :
+        <Users
+          currentPage={props.currentPage}
+          pageSize={props.pageSize}
+          totalFriendsCount={props.totalFriendsCount}
+          onCurrentPageChange={onCurrentPageChange}
+          friends={props.friends}
+          followUser={props.followUser}
+          unfollowUser={props.unfollowUser}
+          setProfilePage={props.setProfilePage}
+          followingInProgress={props.followingInProgress}
+        />}
+    </>
+  );
 }
+
 
 const mapStateToProps = (state) => {
   return {
