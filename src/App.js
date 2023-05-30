@@ -1,16 +1,15 @@
-import React, { Component, useEffect } from 'react';
-import './app.css';
+import React, {useEffect} from 'react';
+import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
-import { connect } from 'react-redux';
-import { initializeApp } from './redux/app-reducer';
-import Preloader from './components/common/Preloader/Preloader';
 import LoginContainer from './components/Login/Login';
+import {connect} from 'react-redux';
+import {initializeApp} from './redux/app-reducer';
+import Preloader from './components/common/Preloader/Preloader';
 
 
 const App = (props) => {
