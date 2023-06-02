@@ -37,10 +37,6 @@ export const addMessage = (newMessage) => {
 }
 
 
-export const sendNewMessage = (newMessage) => {
-    return (dispatch) => {
-        dispatch(addMessage(newMessage))
-    }
-}
+
 
 export default messageReducer;
