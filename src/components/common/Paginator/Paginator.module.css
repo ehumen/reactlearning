@@ -1,4 +1,16 @@
 .currentPage {
+    display: inline-block;
+    width: 28px;
+    height: 25px;
+    text-align: center;
+    padding-top: 3px;
     font-weight: 800;
     font-size: large;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0,0,150,0.3);
+
+}
+
+span {
+    margin: 0 3px;
 }

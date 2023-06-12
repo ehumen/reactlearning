@@ -1,4 +1,4 @@
-import usersReducer, { follow, unfollow, setUsers, setCurrentPage, setTotalFriendsCount, toggleIsFetching, toggleFollowingInProgress } from '../redux/users-reducer';
+import usersReducer, { follow, unfollow, setUsers, setCurrentPage, setTotalFriendsCount, toggleIsFetching, toggleFollowingInProgress } from '../../redux/users-reducer';
 
 describe('usersReducer', () => {
     it('should follow a user', () => {

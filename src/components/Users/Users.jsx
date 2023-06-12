@@ -14,7 +14,7 @@ const Users = ({
                }) => {
     return (
         <div>
-            <Paginator totalFriendsCount={totalFriendsCount}
+            <Paginator totalItemsCount={totalFriendsCount}
                        pageSize={pageSize}
                        currentPage={currentPage}
                        onCurrentPageChange={onCurrentPageChange}/>

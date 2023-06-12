@@ -1,5 +1,5 @@
-const profileReducer = require('./profile-reducer').default;
-const { addPost, setProfilePage, setStatus } = require('./profile-reducer');
+const profileReducer = require('../../redux/profile-reducer').default;
+const { addPost, setProfilePage, setStatus } = require('../../redux/profile-reducer');
 
 describe('profileReducer', () => {
     let initialState;

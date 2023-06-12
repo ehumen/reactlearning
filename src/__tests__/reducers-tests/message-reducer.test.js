@@ -1,4 +1,4 @@
-import messageReducer, {addMessage} from "./message-reducer";
+import messageReducer, {addMessage} from "../../redux/message-reducer";
 
 test('it should add new message', () => {
     let state = {

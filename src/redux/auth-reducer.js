@@ -32,7 +32,7 @@ export const getUserAuthData = () => async (dispatch) => {
         let {id, email, login} = response.data.data;
         dispatch(setUserAuthData(id, email, login, true));
     }
-    
+
 };
 
 
