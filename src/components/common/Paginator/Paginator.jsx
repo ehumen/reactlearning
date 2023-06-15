@@ -2,25 +2,30 @@ import React from "react"
 import classes from "./Paginator.module.css"
 
 const Paginator = ({totalItemsCount, pageSize, currentPage, onCurrentPageChange, portionSize}) => {
+    let halfPortion = portionSize/2;
     let totalPagesCount = Math.ceil(totalItemsCount / pageSize)
 
-    let pages = []
+    let pages = [];
 
     for (let i = 1; i <= totalPagesCount; i++) {
         pages.push(i)
     }
 
     const nextItemsPage = () => {
-        onCurrentPageChange((currentPage + 10));
+        onCurrentPageChange((currentPage + portionSize));
     };
     const prevItemsPage = () => {
-        if(currentPage > 5) {
-            onCurrentPageChange((currentPage - 10))
+        if(currentPage > portionSize) {
+            onCurrentPageChange((currentPage - portionSize));
+        }else if(currentPage <= portionSize){
+            onCurrentPageChange(1);
         }
-    };
 
-    let curPageFirst = currentPage - 5 < 0 ? 0 : currentPage - 5
-    let curPageLast = currentPage + 5
+
+    };
+    //                       5               5
+    let curPageFirst = (currentPage - halfPortion) < 0 ? 0 : currentPage - halfPortion
+    let curPageLast = currentPage - halfPortion < 0 ? portionSize : currentPage + halfPortion
     let slicedPages = pages.slice(curPageFirst, curPageLast)
     return (
         <div>

@@ -10,14 +10,17 @@ const Users = ({
                    onCurrentPageChange,
                    followingInProgress,
                    unfollowUser,
-                   followUser
+                   followUser,
+                   portionSize
                }) => {
     return (
         <div>
             <Paginator totalItemsCount={totalFriendsCount}
                        pageSize={pageSize}
                        currentPage={currentPage}
-                       onCurrentPageChange={onCurrentPageChange}/>
+                       onCurrentPageChange={onCurrentPageChange}
+                       portionSize={portionSize}
+            />
             <div>
                 {friends.map((element) => (
                     <User key={element.id}
