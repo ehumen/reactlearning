@@ -1,14 +1,17 @@
 import store from "./redux/redux-store";
 import React from "react";
 import ReactDOM from 'react-dom/client';
-import App from "./app";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
+import App from "./App";
+import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById('root'))
     .render(
-        <Provider store={store}>
-            <App />
-        </Provider>);
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </BrowserRouter>);
 
 
 // rerenderEntireTree(store.getState());

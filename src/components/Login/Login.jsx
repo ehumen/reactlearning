@@ -4,8 +4,8 @@ import { connect } from "react-redux"
 import LoginForm from "./LoginForm"
 import { Navigate } from "react-router-dom"
 
-const Login = (props) => {
-  if (props.isAuth) {
+const Login = ({isAuth, login}) => {
+  if (isAuth) {
     return <Navigate to="/profile" />
   }
   return (
@@ -13,7 +13,7 @@ const Login = (props) => {
       <div>
         <h1>LOGIN PAGE</h1>
       </div>
-      <LoginForm login={props.login} />
+      <LoginForm login={login} />
     </div>
   )
 }
